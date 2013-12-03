@@ -23,13 +23,22 @@
         <events>
             <sales_order_invoice_register>
                 <observers>
-                    <comwrap_invoiceemails>
+                    <comwrap_invoiceemails_register>
+                        <type>singleton</type>
+                        <class>Comwrap_InvoiceEmails_Model_Observer</class>
+                        <method>register</method>
+                    </comwrap_invoiceemails_register>
+                </observers>
+            </sales_order_invoice_register>
+            <sales_order_invoice_save_after>
+                <observers>
+                    <comwrap_invoiceemails_send>
                         <type>singleton</type>
                         <class>Comwrap_InvoiceEmails_Model_Observer</class>
                         <method>sendEmail</method>
-                    </comwrap_invoiceemails>
+                    </comwrap_invoiceemails_send>
                 </observers>
-            </sales_order_invoice_register>
+            </sales_order_invoice_save_after>
         </events>
         <resources>
             <comwrap_invoiceemails_setup>
@@ -42,7 +51,7 @@
     <default>
         <sales_email>
             <invoice>
-                <pdf_to>contact@example.com</pdf_to>
+                <pdf_to>zburic@comwrap.com,fsticher@comwrap.com,invoices@musikhug-shop.ch</pdf_to>
                 <pdf_sender>general</pdf_sender>
             </invoice>
         </sales_email>

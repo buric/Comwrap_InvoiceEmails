@@ -6,9 +6,46 @@
         const XML_PATH_EMAIL_PDF_TEMPLATE = 'sales_email/invoice/pdf_template';
         const XML_PATH_EMAIL_PDF_SENDER = 'sales_email/invoice/pdf_sender';
 
+        protected $_registry = array();
+        protected $_sent = array();
+
+        public function register(Varien_Event_Observer $observer)
+        {
+            $this->_registry[] = $observer->getEvent()->getInvoice();
+        }
+
+
         public function sendEmail(Varien_Event_Observer $observer)
         {
             $invoice = $observer->getEvent()->getInvoice();
+
+            $registered = false;
+
+            foreach($this->_registry as $r)
+            {
+                if($invoice->getEntityId() === $r->getEntityId())
+                {
+                    $registered = true;
+                    break;
+                }
+            }
+
+            if(!$registered)
+            {
+                return;
+            }
+
+            // send email only once
+            foreach($this->_sent as $s)
+            {
+                if($invoice->getEntityId() === $s->getEntityId())
+                {
+                    return;
+                }
+            }
+
+            $this->_sent[] = $invoice;
+
 
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_PDF_TEMPLATE);
 
