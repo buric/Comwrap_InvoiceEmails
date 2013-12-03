@@ -51,7 +51,7 @@
     <default>
         <sales_email>
             <invoice>
-                <pdf_to>zburic@comwrap.com,fsticher@comwrap.com,invoices@musikhug-shop.ch</pdf_to>
+                <pdf_to>admin@erp.com,admin@shop.com</pdf_to>
                 <pdf_sender>general</pdf_sender>
             </invoice>
         </sales_email>
